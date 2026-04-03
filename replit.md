@@ -24,15 +24,33 @@ Little Stars Daycare — a full professional daycare company website built with 
 
 ## Pages
 
-- `/` — Home page with hero, stats, program highlights, testimonials
-- `/programs` — All daycare programs listing
-- `/programs/:id` — Individual program detail page
-- `/enroll` — Multi-step enrollment form
-- `/staff` — Meet the team page
-- `/gallery` — Photo gallery with category filters
-- `/events` — Upcoming events
-- `/contact` — Contact form + info
-- `/about` — About the daycare, mission, values
+- `/` — Home page with hero, stats, program highlights, testimonials, FAQ teaser, newsletter signup
+- `/programs` — All daycare programs listing (alternating layout)
+- `/programs/:id` — Individual program detail page with sidebar enrollment CTA
+- `/enroll` — 3-step enrollment form (parent info, child info, program selection)
+- `/staff` — Meet the team page with hover overlay cards
+- `/gallery` — Photo gallery with category filters + full lightbox viewer
+- `/events` — Upcoming events with colored type badges
+- `/contact` — Contact form + info card + OpenStreetMap embed
+- `/about` — Our story, philosophy, timeline, core values, accreditations, join the team
+- `/faq` — Full FAQ with 4 categories (Enrollment, Daily Schedule, Safety, Tuition)
+- `/*` — Branded 404 page
+
+## Features Added (v2 - 100% Complete)
+- Social media links (Facebook, Instagram, YouTube) in top bar and footer
+- Clickable phone/email links in top bar and footer
+- Google Fonts properly loaded in HTML head (Fraunces serif + Outfit sans)
+- SEO meta tags and Open Graph tags
+- Star emoji favicon
+- Gallery lightbox with keyboard navigation (arrow keys, Escape)
+- FAQ page with accordion (4 categories, 14 questions)
+- FAQ teaser section on home page
+- Newsletter signup section on home page
+- About page: history timeline, accreditations section, "Join Our Team" CTA
+- Contact page: teal hero header, OpenStreetMap embed
+- Branded 404 page with animated star icon
+- `xl` button size variant added to Button component
+- Footer: FAQ link, hours of operation, social links
 
 ## API Endpoints
 

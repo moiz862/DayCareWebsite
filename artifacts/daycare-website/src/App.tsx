@@ -14,6 +14,7 @@ import Gallery from "@/pages/Gallery";
 import Events from "@/pages/Events";
 import Contact from "@/pages/Contact";
 import About from "@/pages/About";
+import Faq from "@/pages/Faq";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/events" component={Events} />
         <Route path="/contact" component={Contact} />
         <Route path="/about" component={About} />
+        <Route path="/faq" component={Faq} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

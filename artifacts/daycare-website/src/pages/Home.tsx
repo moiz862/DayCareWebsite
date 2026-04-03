@@ -1,9 +1,9 @@
-import { useHealthCheck, useListPrograms, useListTestimonials, useGetStats } from "@workspace/api-client-react";
+import { useListPrograms, useListTestimonials, useGetStats } from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Shield, Heart, Users, ArrowRight } from "lucide-react";
+import { Star, Shield, Heart, Users, ArrowRight, HelpCircle, ChevronRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const fadeIn = {
@@ -233,6 +233,70 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Teaser */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="flex flex-col md:flex-row gap-16 items-start">
+            <div className="md:w-2/5 space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-blue/10 text-primary font-semibold text-sm">
+                <HelpCircle className="w-4 h-4" />
+                Common Questions
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Frequently Asked Questions</h2>
+              <p className="text-lg text-muted-foreground">
+                We know that choosing the right childcare is one of the biggest decisions you'll make. Here are some answers to the questions we hear most.
+              </p>
+              <Button asChild size="lg" variant="outline" className="rounded-full mt-4">
+                <Link href="/faq">
+                  View All FAQs <ChevronRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
+            </div>
+            <div className="md:w-3/5 space-y-4">
+              {[
+                { q: "What age groups do you accept?", a: "We welcome children from 6 weeks to 12 years old across our Infant Care, Toddler, Preschool, and After School programs." },
+                { q: "What are your hours of operation?", a: "We are open Monday through Friday, 7:00 AM to 6:00 PM. We are closed on federal holidays and observe a two-week winter break." },
+                { q: "Is there a waitlist?", a: "Our programs fill quickly, especially Infant Care. We recommend applying early. Waitlisted families are contacted as soon as a spot opens." },
+                { q: "Do you provide meals?", a: "Yes! We provide a morning snack, hot lunch, and afternoon snack daily. Meals meet USDA guidelines and accommodate dietary restrictions." },
+              ].map((faq, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="bg-muted/50 rounded-2xl p-6 border border-border/50"
+                >
+                  <h3 className="font-bold text-foreground mb-2">{faq.q}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{faq.a}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 bg-brand-green/10 border-y border-brand-green/20">
+        <div className="container mx-auto px-4 max-w-2xl text-center space-y-6">
+          <h2 className="text-3xl font-serif font-bold text-primary">Stay in the Loop</h2>
+          <p className="text-muted-foreground text-lg">
+            Get the latest news, upcoming events, and early learning tips delivered to your inbox monthly.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 h-12 rounded-full px-6 border border-border bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm"
+            />
+            <Button size="lg" className="rounded-full px-8 shrink-0">
+              Subscribe
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground">No spam, ever. Unsubscribe at any time.</p>
         </div>
       </section>
 
