@@ -1,9 +1,9 @@
-import { pgTable, text, serial, timestamp, integer } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
-export const enrollmentsTable = pgTable("enrollments", {
-  id: serial("id").primaryKey(),
+export const enrollmentsTable = sqliteTable("enrollments", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   parentName: text("parent_name").notNull(),
   parentEmail: text("parent_email").notNull(),
   parentPhone: text("parent_phone").notNull(),
@@ -15,7 +15,7 @@ export const enrollmentsTable = pgTable("enrollments", {
   startDate: text("start_date").notNull(),
   specialNeeds: text("special_needs"),
   status: text("status").notNull().default("pending"),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  createdAt: integer("created_at", { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 });
 
 export const insertEnrollmentSchema = createInsertSchema(enrollmentsTable).omit({ id: true, createdAt: true });

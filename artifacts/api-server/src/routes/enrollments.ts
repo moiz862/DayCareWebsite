@@ -32,4 +32,18 @@ router.post("/enrollments", async (req, res): Promise<void> => {
   res.status(201).json(enrollment);
 });
 
+router.delete("/enrollments/:id", async (req, res): Promise<void> => {
+  const idValue = parseInt(req.params.id, 10);
+  if (isNaN(idValue)) {
+    res.status(400).json({ error: "Invalid id" });
+    return;
+  }
+  const [deletedEnrollment] = await db.delete(enrollmentsTable).where(eq(enrollmentsTable.id, idValue)).returning();
+  if (!deletedEnrollment) {
+    res.status(404).json({ error: "Enrollment not found" });
+    return;
+  }
+  res.status(204).send();
+});
+
 export default router;

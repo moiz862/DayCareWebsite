@@ -1,13 +1,28 @@
 import { useState } from "react";
 import { useListGallery } from "@workspace/api-client-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn, Trash2 } from "lucide-react";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 export default function Gallery() {
   const { data: photos, isLoading } = useListGallery();
+  const { isAuthenticated } = useAdminAuth();
+  const queryClient = useQueryClient();
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const deleteGalleryMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const res = await fetch(`/api/gallery/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/gallery"] });
+      closeLightbox();
+    }
+  });
 
   const categories = ["all", "activities", "outdoor", "learning", "events", "meals"];
 
@@ -88,8 +103,26 @@ export default function Gallery() {
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-end justify-between p-4">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
-                      <ZoomIn className="w-5 h-5 text-white" />
+                    <div className="flex flex-col gap-2">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-2 hover:bg-white/40 transition-colors">
+                        <ZoomIn className="w-5 h-5 text-white" />
+                      </div>
+                      {isAuthenticated && (
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          className="h-9 w-9 rounded-full shadow-lg"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm("Permanently delete this photo from the gallery?")) {
+                              deleteGalleryMutation.mutate(photo.id);
+                            }
+                          }}
+                          disabled={deleteGalleryMutation.isPending}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      )}
                     </div>
                     <div className="w-full transform translate-y-4 group-hover:translate-y-0 transition-transform text-white">
                       <p className="font-bold font-serif text-base leading-tight">{photo.caption}</p>
@@ -149,7 +182,22 @@ export default function Gallery() {
               />
               <div className="text-center">
                 <p className="text-white font-serif text-xl font-bold">{filteredPhotos[lightboxIndex].caption}</p>
-                <p className="text-white/60 capitalize mt-1">{filteredPhotos[lightboxIndex].category}</p>
+                <p className="text-white/60 capitalize mt-1 mb-4">{filteredPhotos[lightboxIndex].category}</p>
+                
+                {isAuthenticated && (
+                  <Button
+                    variant="destructive"
+                    className="rounded-full px-6"
+                    onClick={() => {
+                      if (confirm("Permanently delete this photo?")) {
+                        deleteGalleryMutation.mutate(filteredPhotos[lightboxIndex!].id);
+                      }
+                    }}
+                    disabled={deleteGalleryMutation.isPending}
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" /> Delete Photo
+                  </Button>
+                )}
               </div>
             </motion.div>
 

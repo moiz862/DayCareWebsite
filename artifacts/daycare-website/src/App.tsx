@@ -15,6 +15,7 @@ import Events from "@/pages/Events";
 import Contact from "@/pages/Contact";
 import About from "@/pages/About";
 import Faq from "@/pages/Faq";
+import Admin from "@/pages/Admin";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ function Router() {
         <Route path="/contact" component={Contact} />
         <Route path="/about" component={About} />
         <Route path="/faq" component={Faq} />
+        <Route path="/admin-portal" component={Admin} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

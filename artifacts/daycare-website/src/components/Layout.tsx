@@ -5,7 +5,11 @@ import { Menu, X, Star, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
+
+  const handleAdminPortalTrigger = () => {
+    setLocation("/admin-portal");
+  };
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -46,12 +50,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Main Navbar */}
       <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <div 
+            onDoubleClick={handleAdminPortalTrigger}
+            className="flex items-center gap-2 hover:opacity-90 transition-opacity cursor-default select-none"
+          >
             <div className="w-10 h-10 bg-brand-yellow rounded-xl flex items-center justify-center rotate-3">
               <Star className="w-6 h-6 text-primary fill-primary" />
             </div>
-            <span className="font-serif text-2xl font-bold text-primary">Little Stars</span>
-          </Link>
+            <Link href="/" className="font-serif text-2xl font-bold text-primary">Little Stars</Link>
+          </div>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
@@ -120,12 +127,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* Brand */}
             <div className="space-y-4">
-              <Link href="/" className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-brand-yellow rounded-xl flex items-center justify-center -rotate-3">
+              <div 
+                onDoubleClick={handleAdminPortalTrigger}
+                className="flex items-center gap-2 cursor-default select-none group"
+              >
+                <div className="w-10 h-10 bg-brand-yellow rounded-xl flex items-center justify-center -rotate-3 group-hover:rotate-0 transition-transform">
                   <Star className="w-6 h-6 text-primary fill-primary" />
                 </div>
-                <span className="font-serif text-2xl font-bold text-white">Little Stars</span>
-              </Link>
+                <Link href="/" className="font-serif text-2xl font-bold text-white">Little Stars</Link>
+              </div>
               <p className="text-primary-foreground/80 leading-relaxed text-sm">
                 A warm, trusted childcare center dedicated to nurturing young minds and fostering joyful learning for over 15 years.
               </p>
@@ -194,7 +204,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-white/10 text-primary-foreground/60 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} Little Stars Daycare. All rights reserved.</p>
-            <div className="flex gap-6">
+            <div className="flex gap-6 items-center">
               <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
               <Link href="/contact" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/contact" className="hover:text-white transition-colors">Terms of Service</Link>

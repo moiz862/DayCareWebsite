@@ -124,6 +124,21 @@ paths:
               schema:
                 $ref: "#/components/schemas/Enrollment"
 
+  /enrollments/{id}:
+    delete:
+      operationId: deleteEnrollment
+      tags: [enrollments]
+      summary: Delete enrollment request
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Enrollment deleted
+
   /staff:
     get:
       operationId: listStaff
@@ -153,6 +168,51 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/GalleryPhoto"
+    post:
+      operationId: createGalleryPhoto
+      tags: [gallery]
+      summary: Upload a new gallery photo
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                caption:
+                  type: string
+                category:
+                  type: string
+                  enum: [activities, outdoor, learning, events, meals]
+              required:
+                - image
+                - caption
+                - category
+      responses:
+        "201":
+          description: Photo uploaded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GalleryPhoto"
+
+  /gallery/{id}:
+    delete:
+      operationId: deleteGalleryPhoto
+      tags: [gallery]
+      summary: Delete a gallery photo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Photo deleted
 
   /testimonials:
     get:
@@ -183,8 +243,53 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Event"
+    post:
+      operationId: createEvent
+      tags: [events]
+      summary: Create a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventBody"
+      responses:
+        "201":
+          description: Event created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /events/{id}:
+    delete:
+      operationId: deleteEvent
+      tags: [events]
+      summary: Delete an event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Event deleted
 
   /contact:
+    get:
+      operationId: listContact
+      tags: [contact]
+      summary: List all contact messages
+      responses:
+        "200":
+          description: List of contact messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ContactMessage"
     post:
       operationId: submitContact
       tags: [contact]
@@ -202,6 +307,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ContactMessage"
+
+  /contact/{id}:
+    delete:
+      operationId: deleteContact
+      tags: [contact]
+      summary: Delete a contact message
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Contact message deleted
 
   /stats:
     get:
@@ -475,6 +595,30 @@ components:
           enum: [open-house, holiday, workshop, field-trip, celebration]
       required:
         - id
+        - title
+        - description
+        - date
+        - time
+        - location
+        - type
+
+    CreateEventBody:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+          enum: [open-house, holiday, workshop, field-trip, celebration]
+      required:
         - title
         - description
         - date
