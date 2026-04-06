@@ -90,9 +90,6 @@ importers:
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0
-      '@libsql/win32-x64-msvc':
-        specifier: 0.4.7
-        version: 0.4.7
       '@neondatabase/serverless':
         specifier: ^1.0.2
         version: 1.0.2
@@ -559,6 +556,9 @@ importers:
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0
+      '@neondatabase/serverless':
+        specifier: ^1.0.2
+        version: 1.0.2
       drizzle-orm:
         specifier: 'catalog:'
         version: 0.45.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@types/pg@8.11.6)
@@ -4002,7 +4002,8 @@ snapshots:
   '@libsql/linux-x64-musl@0.4.7':
     optional: true
 
-  '@libsql/win32-x64-msvc@0.4.7': {}
+  '@libsql/win32-x64-msvc@0.4.7':
+    optional: true
 
   '@neon-rs/load@0.0.4': {}
 
