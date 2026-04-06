@@ -1,7 +1,18 @@
 {
   "version": 2,
-  "buildCommand": "pnpm build",
-  "outputDirectory": "artifacts/daycare-website/dist/public",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "artifacts/daycare-website/dist/public"
+      }
+    },
+    {
+      "src": "api/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -9,7 +20,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "artifacts/daycare-website/dist/public/index.html"
     }
   ]
 }
