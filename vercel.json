@@ -1,8 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "pnpm build",
-  "outputDirectory": "artifacts/daycare-website/dist/public",
-  "framework": "vite",
+  "buildCommand": "pnpm build && mkdir -p public && cp -rp artifacts/daycare-website/dist/public/* public/",
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/api/(.*)",
