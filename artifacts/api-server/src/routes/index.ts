@@ -1,13 +1,13 @@
 import { Router, type IRouter } from "express";
-import healthRouter from "./health";
-import programsRouter from "./programs";
-import enrollmentsRouter from "./enrollments";
-import staffRouter from "./staff";
-import galleryRouter from "./gallery";
-import testimonialsRouter from "./testimonials";
-import eventsRouter from "./events";
-import contactRouter from "./contact";
-import statsRouter from "./stats";
+import healthRouter from "./health.js";
+import programsRouter from "./programs.js";
+import enrollmentsRouter from "./enrollments.js";
+import staffRouter from "./staff.js";
+import galleryRouter from "./gallery.js";
+import testimonialsRouter from "./testimonials.js";
+import eventsRouter from "./events.js";
+import contactRouter from "./contact.js";
+import statsRouter from "./stats.js";
 
 const router: IRouter = Router();
 
