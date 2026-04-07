@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm build:vercel",
+  "buildCommand": "pnpm -w run build:vercel",
   "outputDirectory": "artifacts/daycare-website/dist/public",
   "rewrites": [
     {
